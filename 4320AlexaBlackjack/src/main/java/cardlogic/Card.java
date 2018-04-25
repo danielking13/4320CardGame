@@ -22,11 +22,19 @@ public class Card {
         return card.value == 1;
     }
     
-    public int getHighBlackjackValue(Card card){//again, must only have value from 1 to 13
-        if (card.value == 1 ){
+    public int getHighBlackjackValue(){//again, must only have value from 1 to 13
+        if (this.value == 1 ){
             return 11;
-        }  else if (card.value <= 10 && card.value >= 2){
-            return card.value;
+        }  else if (this.value <= 10 && this.value >= 2){
+            return this.value;
+        } else {
+            return 10;
+        }
+    }
+    
+    public int getLowBlackjackValue(){
+        if (this.value >= 1 && this.value <= 10){
+            return this.value;
         } else {
             return 10;
         }
