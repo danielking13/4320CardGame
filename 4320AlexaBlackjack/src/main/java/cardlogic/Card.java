@@ -12,12 +12,23 @@ package cardlogic;
 public class Card {
     public int value,suit;
     
-    public Card(int value, int suit){
+    
+    public Card(int value, int suit){//note, does not check for out of bounds cards, must make sure to properly implement in deck
         this.value = value;
         this.suit = suit;
     }
     
     public boolean isAce(Card card){
         return card.value == 1;
+    }
+    
+    public int getHighBlackjackValue(Card card){//again, must only have value from 1 to 13
+        if (card.value == 1 ){
+            return 11;
+        }  else if (card.value <= 10 && card.value >= 2){
+            return card.value;
+        } else {
+            return 10;
+        }
     }
 }
