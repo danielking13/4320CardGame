@@ -1,0 +1,19 @@
+{
+"intents": [
+    {
+      "intent": "CardTotalIntent"
+    },
+    {
+      "intent": "WinOrBustIntent"
+    },
+    {
+      "intent": "EndGameIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}
