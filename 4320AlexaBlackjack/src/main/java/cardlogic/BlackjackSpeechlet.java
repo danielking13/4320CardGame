@@ -38,7 +38,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
     public SpeechletResponse onLaunch(SpeechletRequestEnvelope<LaunchRequest> requestEnvelope) {
         log.info("onLaunch requestId={}, sessionId={}", requestEnvelope.getRequest().getRequestId(),
                 requestEnvelope.getSession().getSessionId());
-        return getNewFactResponse();
+        return getNewFactResponse(); //This needs to be Kolton's method to start new game onLaunch
     }
 
     @Override
@@ -50,9 +50,12 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         Intent intent = request.getIntent();
         String intentName = (intent != null) ? intent.getName() : null;
 
-        if ("GetNewFactIntent".equals(intentName)) {
-            return getNewFactResponse();
+        if ("CardTotalIntent".equals(intentName)) {
+            return getCardTotalResponse();
 
+        } else if("WinOrBustIntent".equals(intentName)){
+            return getWinOrBustResponse();
+            
         } else if ("AMAZON.HelpIntent".equals(intentName)) {
             return getHelpResponse();
 
@@ -77,24 +80,58 @@ public class BlackjackSpeechlet implements SpeechletV2 {
                 requestEnvelope.getSession().getSessionId());
         // any cleanup logic goes here
     }
+    
 
+//    /**
+//     * Gets a random new fact from the list and returns to the user.
+//     */
+//    private SpeechletResponse getNewFactResponse() {
+//        // Get a random space fact from the space facts list
+//        int factIndex = (int) Math.floor(Math.random() * SPACE_FACTS.length);
+//        String fact = SPACE_FACTS[factIndex];
+//
+//        // Create speech output
+//        String speechText = "Here's your space fact: " + fact;
+//
+//        // Create the Simple card content.
+//        SimpleCard card = getSimpleCard("SpaceGeek", speechText);
+//
+//        // Create the plain text output.
+//        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
+//
+//        return SpeechletResponse.newTellResponse(speech, card);
+//    }
+    
     /**
-     * Gets a random new fact from the list and returns to the user.
-     */
-    private SpeechletResponse getNewFactResponse() {
-        // Get a random space fact from the space facts list
-        int factIndex = (int) Math.floor(Math.random() * SPACE_FACTS.length);
-        String fact = SPACE_FACTS[factIndex];
-
-        // Create speech output
-        String speechText = "Here's your space fact: " + fact;
-
-        // Create the Simple card content.
-        SimpleCard card = getSimpleCard("SpaceGeek", speechText);
-
+     * Returns the card total after a round.
+    */
+    private SpeechletResponse getCardTotalResponse() {
+        int cardTotal = (int)8;
+        
+        String speechText = "My hitter my hitter. Your card total is " + cardTotal;
+        
+        SimpleCard card = getSimpleCard("CardTotal", speechText);
+        
         // Create the plain text output.
         PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
-
+        
+        return SpeechletResponse.newTellRespponse(speech, card);
+    }
+    
+    private SpeechletResponse getWinOrBustResponse() {
+        boolean winOrBust = true;
+        String speechText;
+        
+        if(winOrBust){
+            speechText = "Congratulations, you have won!";
+        }
+        else {
+            speechText = "Bummer, you busted.";
+        }
+        
+        SimpleCard card = getSimpleCard("WinOrBust", speechText);
+        
+        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
         return SpeechletResponse.newTellResponse(speech, card);
     }
 
