@@ -115,7 +115,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         // Create the plain text output.
         PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
         
-        return SpeechletResponse.newTellRespponse(speech, card);
+        return SpeechletResponse.newTellResponse(speech, card);
     }
     
     private SpeechletResponse getWinOrBustResponse() {

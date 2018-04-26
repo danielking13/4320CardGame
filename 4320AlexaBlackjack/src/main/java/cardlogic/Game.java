@@ -17,6 +17,7 @@ public class Game {
     public ArrayList<Card> playerHand;
     public ArrayList<Card> dealerHand;
     private int i;
+    public int bet;
     
     public Game(){
        int a,b;
@@ -34,7 +35,7 @@ public class Game {
         Collections.shuffle(deck);
     }
     
-    public Result Deal(){
+    public Result deal(){
         Result result = new Result();
         shuffle();
         playerHand.clear();

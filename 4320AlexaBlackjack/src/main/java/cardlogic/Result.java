@@ -23,6 +23,7 @@ public class Result {
     private boolean playerWin;
     private boolean dealerWin;
     private boolean tie;
+    private Integer bankTotal;
     
     public Result(){
         soft = false;
@@ -33,6 +34,7 @@ public class Result {
         playerWin = false;
         dealerWin = false;
         tie = false;
+        bankTotal = 5000;
         
     }
     
