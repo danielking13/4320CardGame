@@ -7,6 +7,7 @@ package cardlogic;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Set;
 
 /**
  *
@@ -34,7 +35,8 @@ public class Game {
         Collections.shuffle(deck);
     }
     
-    public void Deal(){
+    public Result Deal(){
+        Result result = new Result();
         shuffle();
         playerHand.clear();
         dealerHand.clear();
@@ -47,16 +49,73 @@ public class Game {
         i++;
         dealerHand.add(deck.get(i));
         i++;
-        if (checkBlackjack(playerHand) && checkBlackjack(dealerHand)){
-            //push
+        if (checkBlackjack(playerHand) && checkBlackjack(dealerHand)){//if both player and dealer have blackjack, then tie
+            result.setTie(true);
+            result.setDealerBlackjack(true);
+            result.setPlayerBlackjack(true);
+            result.setWinMultiplier(1.0);
+            
         } else if (checkBlackjack(playerHand)){
-            //player win
+            result.setPlayerBlackjack(true);
+            result.setPlayerWin(true);
+            result.setWinMultiplier(2.5);
+            
         } else if (checkBlackjack(dealerHand)){
-            //dealer win
+            result.setDealerWin(true);
+            result.setDealerBlackjack(true);
+            result.setWinMultiplier(0.0);
         } else {
             //players hand to play
+            result.setPlayerScore(getHandCount(playerHand));
+            result.setDealerShowing(dealerHand.get(0).getHighBlackjackValue());
+            result.setSoft(isSoft(playerHand));
         }
-        
+        return result;
+    }
+    
+    public Result hit(){//every time you call for a hit, you must check to see if the dealer wins or the player busts
+        Result result = new Result();
+        playerHand.add(deck.get(i));
+        i++;
+        result.setPlayerScore(getHandCount(playerHand));
+        result.setDealerShowing(dealerHand.get(0).getHighBlackjackValue());
+        result.setSoft(isSoft(playerHand));
+        if (getHandCount(playerHand) > 21){
+            result.setPlayerBust(true);
+            result.setDealerWin(true);
+            result.setWinMultiplier(0.0);
+        }
+        return result;
+    }
+    
+    public Result stand(){//player must have a not busted hand to stand, if stand with a busted hand, will not behave as intended
+        Result result = new Result();
+        int player,dealer;
+        player = getHandCount(playerHand);
+        result.setPlayerScore(player);
+        result.setSoft(isSoft(playerHand));
+        while (getHandCount(dealerHand) < 17){
+            dealerHand.add(deck.get(i));
+            i++;   
+        }
+        dealer = getHandCount(dealerHand);
+        result.setDealerFinalScore(dealer);
+        if (dealer > 21){
+            result.setDealerBust(true);
+            result.setPlayerWin(true);
+            result.setWinMultiplier(2.0);
+        }
+        if (player > dealer){
+            result.setPlayerWin(true);
+            result.setWinMultiplier(2.0);
+        } else if (player == dealer){
+            result.setWinMultiplier(1.0);
+            result.setTie(true);
+        } else {
+            result.setDealerWin(true);
+            result.setWinMultiplier(0.0);
+        }
+        return result;
     }
     
     private boolean checkBlackjack(ArrayList<Card> hand){
@@ -64,11 +123,7 @@ public class Game {
             return false;
         } else {
             int value = hand.get(0).getHighBlackjackValue()+ hand.get(1).getHighBlackjackValue();
-            if (value == 21){
-                return true;
-            } else {
-                return false;
-            }
+            return value == 21;
         }
     }
     
@@ -83,9 +138,25 @@ public class Game {
         if (high == low) {//true if no aces
             return high;
         } else {
-            if (high < 21) return high;
-            else 
             
+            while (high > 21 & high > low){//i believe this should work for the entire thing, but would want to test it
+                 high = high - 10;    
+            }
+            return high;
+            
+        }
+    }
+    
+    private boolean isSoft(ArrayList<Card> hand){
+        int low;
+        low = 0;
+        for (int j = 0; j < hand.size(); j++){
+            low = low + hand.get(j).getLowBlackjackValue();
+        }
+        if (low == getHandCount(hand)){
+            return false;
+        } else {
+            return true;
         }
     }
     
