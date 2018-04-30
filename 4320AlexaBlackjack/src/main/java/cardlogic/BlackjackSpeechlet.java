@@ -70,7 +70,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
 
             return SpeechletResponse.newTellResponse(outputSpeech);
         } else {
-            return getAskResponse("SpaceGeek", "This is unsupported.  Please try something else.");
+            return getAskResponse("Blackjack", "This is unsupported.  Please try something else.");
         }
     }
 
@@ -80,27 +80,6 @@ public class BlackjackSpeechlet implements SpeechletV2 {
                 requestEnvelope.getSession().getSessionId());
         // any cleanup logic goes here
     }
-    
-
-//    /**
-//     * Gets a random new fact from the list and returns to the user.
-//     */
-//    private SpeechletResponse getNewFactResponse() {
-//        // Get a random space fact from the space facts list
-//        int factIndex = (int) Math.floor(Math.random() * SPACE_FACTS.length);
-//        String fact = SPACE_FACTS[factIndex];
-//
-//        // Create speech output
-//        String speechText = "Here's your space fact: " + fact;
-//
-//        // Create the Simple card content.
-//        SimpleCard card = getSimpleCard("SpaceGeek", speechText);
-//
-//        // Create the plain text output.
-//        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
-//
-//        return SpeechletResponse.newTellResponse(speech, card);
-//    }
     
     /**
      * Returns the card total after a round.
@@ -134,15 +113,38 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
         return SpeechletResponse.newTellResponse(speech, card);
     }
+    
+    private SpeechletResponse getEndGameResponse() {
+        //take this logic and put it somewhere else!
+//        Game game = new Game();
+//        Result result = game.hit();
+//        if(result.getBankTotal() <= 0) {
+//            return getEndGameResponse();
+//        }
+
+        // Create speech output
+//        if(result.getBankTotal() <= 0) {
+//            String speechText = "You have run out of money. Would you like to start a new game?";
+//        }
+        String speechText = "Would you like to start a new game?";
+
+        // Create the Simple card content.
+        SimpleCard card = getSimpleCard("EndGame", speechText);
+
+        // Create the plain text output.
+        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
+
+        return SpeechletResponse.newTellResponse(speech, card);
+    }
 
     /**
      * Returns a response for the help intent.
      */
     private SpeechletResponse getHelpResponse() {
         String speechText =
-                "You can ask Space Geek tell me a space fact, or, you can say exit. What can I "
+                "You can ask Blackjack to deal, ask for how to play, or, you can say exit. What can I "
                         + "help you with?";
-        return getAskResponse("SpaceGeek", speechText);
+        return getAskResponse("Blackjack", speechText);
     }
 
     /**
