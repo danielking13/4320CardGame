@@ -212,7 +212,7 @@ public class Result {
     }
     public void updateBankTotal (int payout) {
 //        Shouldn't this be += payout?
-        this.BankTotal += BankTotal; 
+        this.bankTotal += bankTotal; 
     } 
     
     public int getBank () {
