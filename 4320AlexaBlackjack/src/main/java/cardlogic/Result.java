@@ -209,6 +209,9 @@ public class Result {
     public void setDealerBust(boolean dealerBust) {
         this.dealerBust = dealerBust;
     }
+    public void updateBankTotal (Integer BankTotal) {
+        this.BankTotal = BankTotal; 
+    } 
 
 }
     
