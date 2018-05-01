@@ -53,8 +53,14 @@ public class BlackjackSpeechlet implements SpeechletV2 {
 
         Intent intent = request.getIntent();
         String intentName = (intent != null) ? intent.getName() : null;
-
-        if ("CardTotalIntent".equals(intentName)) {
+        
+        if("StartNewGameIntent".equals(intentName)){
+            setUpNewGame();
+            return readPlayersHand();
+        } else if("ReadRulesIntent".equals(intentName)){
+            return getRulesResponse();
+            
+        }else if ("CardTotalIntent".equals(intentName)) {
             return getCardTotalResponse();
 
         } else if("WinOrBustIntent".equals(intentName)){
@@ -93,6 +99,37 @@ public class BlackjackSpeechlet implements SpeechletV2 {
                 requestEnvelope.getSession().getSessionId());
         // any cleanup logic goes here
     }
+    
+    private SpeechletResponse openingStatement(){
+        
+        PlainTextOutputSpeech speech = getPlanTextOutput("Would you like to start a new game or listen to the rules");
+        
+        return SpeechletResponse.newTellResponse(speech);
+    }
+    
+    private SpeechletResponse getRulesResponse(){
+        PlainTextOutputSpeech speech = getPlainTextOutput(
+        "This game uses a standard 52 card deck" +
+        "Each participant attempts to beat the dealer by getting a count as close to 21 as possible, without going over 21." +
+        "Before the deal begins, each player places a bet. The player starts with one thousand dollars." +
+        "The minimum bet is 500 dollars." +
+        "When all the players have placed their bets, the dealer gives one card face up to each player in rotation clockwise, and then one card face up to himself." + 
+        "Another round of cards is then dealt face up to each player, but the dealer takes his second card face down." + 
+        "Thus, each player except the dealer receives two cards face up, and the dealer receives one card face up and one card face down." +
+        "The player to the left goes first and must decide whether to stand or hit." +
+        "Thus, a player may stand on the two cards originally dealt him, or he may ask the dealer for additional cards, one at a time, until he either decides to stand on the total , or go bust by exceeding a total of twenty one." +
+        "When the dealer has served every player, his face-down card is turned up. If the total is seventeen or more, he must stand. If the total is sixteen or under, he must take a card." +
+        "He must continue to take cards until the total is 17 or more, at which point the dealer must stand."
+        );
+        
+        return SpeechletResponse.newTellResponse(speech);
+    }
+    
+    private setUpNewGame(){
+        Game.shuffle();
+    }
+    
+    
     
     /**
      * Returns the card total after a round.
