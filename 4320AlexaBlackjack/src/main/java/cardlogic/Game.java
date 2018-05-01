@@ -19,6 +19,8 @@ public class Game {
     private int i;
     public int bet;
     
+    Result result = new Result();
+    
     public Game(){
        int a,b;
         deck = new ArrayList<>();
@@ -29,6 +31,7 @@ public class Game {
         }
         playerHand = new ArrayList<>();
         dealerHand = new ArrayList<>();
+    
     }
     
     public void shuffle(){
@@ -36,7 +39,7 @@ public class Game {
     }
     
     public Result deal(){
-        Result result = new Result();
+   //     Result result = new Result();
         shuffle();
         playerHand.clear();
         dealerHand.clear();
@@ -74,7 +77,7 @@ public class Game {
     }
     
     public Result hit(){//every time you call for a hit, you must check to see if the dealer wins or the player busts
-        Result result = new Result();
+ //       Result result = new Result();
         playerHand.add(deck.get(i));
         i++;
         result.setPlayerScore(getHandCount(playerHand));
@@ -89,7 +92,7 @@ public class Game {
     }
     
     public Result stand(){//player must have a not busted hand to stand, if stand with a busted hand, will not behave as intended
-        Result result = new Result();
+  //      Result result = new Result();
         int player,dealer;
         player = getHandCount(playerHand);
         result.setPlayerScore(player);
