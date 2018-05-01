@@ -212,6 +212,10 @@ public class Result {
     public void updateBankTotal (Integer BankTotal) {
         this.BankTotal = BankTotal; 
     } 
+    
+    public int getBank () {
+        return bankTotal; 
+    }
 
 }
     
