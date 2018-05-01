@@ -104,7 +104,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         
         PlainTextOutputSpeech speech = getPlanTextOutput("Would you like to start a new game or listen to the rules");
         
-        return SpeechletResponse.newTellResponse(speech);
+        return SpeechletResponse.newAskResponse(speech);
     }
     
     private SpeechletResponse getRulesResponse(){
@@ -112,7 +112,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         "This game uses a standard 52 card deck" +
         "Each participant attempts to beat the dealer by getting a count as close to 21 as possible, without going over 21." +
         "Before the deal begins, each player places a bet. The player starts with one thousand dollars." +
-        "The minimum bet is 500 dollars." +
+        "The maximum bet is 500 dollars." +
         "When all the players have placed their bets, the dealer gives one card face up to each player in rotation clockwise, and then one card face up to himself." + 
         "Another round of cards is then dealt face up to each player, but the dealer takes his second card face down." + 
         "Thus, each player except the dealer receives two cards face up, and the dealer receives one card face up and one card face down." +
@@ -122,7 +122,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         "He must continue to take cards until the total is 17 or more, at which point the dealer must stand."
         );
         
-        return SpeechletResponse.newTellResponse(speech);
+        return SpeechletResponse.newAskResponse(speech);
     }
     
     private setUpNewGame(){
@@ -144,7 +144,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         // Create the plain text output.
         PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
         
-        return SpeechletResponse.newTellResponse(speech, card);
+        return SpeechletResponse.newAskResponse(speech, card);
     }
     
     private SpeechletResponse getWinOrBustResponse() {
@@ -161,7 +161,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         SimpleCard card = getSimpleCard("WinOrBust", speechText);
         
         PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
-        return SpeechletResponse.newTellResponse(speech, card);
+        return SpeechletResponse.newAskResponse(speech, card);
     }
     
     private SpeechletResponse standHand() {
@@ -184,7 +184,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         SimpleCard card = getSimpleCard("HitHand", speechText);
         
         PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
-        return SpeechletResponse.newTellResponse(speech, card);
+        return SpeechletResponse.newAskResponse(speech, card);
     }
     
     
@@ -203,7 +203,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         SimpleCard card = getSimpleCard("HitHand", speechText);
         
         PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
-        return SpeechletResponse.newTellResponse(speech, card);
+        return SpeechletResponse.newAskResponse(speech, card);
     }
     
     private SpeechletResponse readPlayersHand() {
@@ -219,7 +219,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         SimpleCard card = getSimpleCard("PlayerHand", speechText);
         
         PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
-        return SpeechletResponse.newTellResponse(speech, card);
+        return SpeechletResponse.newAskResponse(speech, card);
     }
     
     
