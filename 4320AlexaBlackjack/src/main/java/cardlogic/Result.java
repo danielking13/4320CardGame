@@ -24,6 +24,7 @@ public class Result {
     private boolean dealerWin;
     private boolean tie;
     private Integer bankTotal;
+    private int payout ; 
     
     public Result(){
         soft = false;
@@ -210,7 +211,7 @@ public class Result {
         this.dealerBust = dealerBust;
     }
     public void updateBankTotal (Integer BankTotal) {
-        this.BankTotal = BankTotal; 
+        this.BankTotal += BankTotal; 
     } 
     
     public int getBank () {
