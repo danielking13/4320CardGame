@@ -53,12 +53,14 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         String intentName = (intent != null) ? intent.getName() : null;
         
         if("StartNewGameIntent".equals(intentName)){
-            game = new Game();
-            return readPlayersHand();
+            game = new Game(); 
+            //       return askForBet();
+            //needs to call a function that asks how much they want to bet and retrieves their answer
         } else if("ReadRulesIntent".equals(intentName)){
             return getRulesResponse();
             
         } else if("DealIntent".equals(intentName)){
+            //game.setBet();
             return dealHand();
         
         } else if("HitIntent".equals(intentName)){
@@ -121,7 +123,9 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         Result result = game.deal();
         
         
-        
+        if(result.tie) {
+            speechText = "Both you and the dealer got Blackjack! You tied! Your ";
+        }
         
         
         
