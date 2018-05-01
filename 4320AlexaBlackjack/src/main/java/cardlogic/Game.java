@@ -75,8 +75,7 @@ public class Game {
             //players hand to play
             result.setPlayerScore(getHandCount(playerHand));
             result.setDealerShowing(dealerHand.get(0).getHighBlackjackValue());
-            result.setSoft(isSoft(playerHand));
-            result.updateBankTotal(result.getPayout(bet));
+            result.setSoft(isSoft(playerHand)); 
         }
         return result;
     }
