@@ -22,7 +22,7 @@
       "intent": "AMAZON.HelpIntent"
     },
     {
-       "intent": "ReadPlayersHandIntent"
+       "intent": "DealIntent"
     },
     {
        "intent": "HitIntent"
