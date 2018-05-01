@@ -27,7 +27,7 @@ import com.amazon.speech.ui.OutputSpeech;
 public class BlackjackSpeechlet implements SpeechletV2 {
     private static final Logger log = LoggerFactory.getLogger(BlackjackSpeechlet.class);
     
-    Game game = new Game();
+    Game game;
     
     @Override
     public void onSessionStarted(SpeechletRequestEnvelope<SessionStartedRequest> requestEnvelope) {
@@ -53,7 +53,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         String intentName = (intent != null) ? intent.getName() : null;
         
         if("StartNewGameIntent".equals(intentName)){
-            setUpNewGame();
+            game = new Game();
             return readPlayersHand();
         } else if("ReadRulesIntent".equals(intentName)){
             return getRulesResponse();
@@ -118,10 +118,6 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         "He must continue to take cards until the total is 17 or more, at which point the dealer must stand.";
         
         return getAskResponse("Rules", speech);
-    }
-    
-    private void setUpNewGame(){
-        game.shuffle();
     }
     
     
