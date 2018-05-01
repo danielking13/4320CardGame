@@ -30,5 +30,17 @@
     {
        "intent": "StandIntent" 
     }
+    {   
+        "intent": "BetIntent",
+        "slots": [
+            {
+                "name": "bet",
+                "type": "AMAZON.NUMBER"
+            }
+         ],
+        "samples" : [
+            "I would like to bet {bet}." ]
+     }
+}
   ]
 }
