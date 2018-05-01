@@ -19,7 +19,10 @@
        "intent": "ReadPlayersHandIntent"
     },
     {
-        "intent": "HitOrStandIntent"
-    }    
+       "intent": "HitIntent"
+    },
+    {
+       "intent": "StandIntent" 
+    }
   ]
 }
