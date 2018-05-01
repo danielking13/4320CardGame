@@ -157,7 +157,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         int i = 0; //static?
         
         if(game.hit().playerBust) {
-            speechText = "You busted. You lose."
+            speechText = "You busted. You lose.";
         } else {
             speechText = "You were dealt a" + game.playerHand.get(i).value + "so your total is now a" 
                         + game.getHandCount(playerHand) + "Would you like to hit or stand?";
@@ -186,28 +186,26 @@ public class BlackjackSpeechlet implements SpeechletV2 {
     }
     
     
-    
+    /**
+     * Function used to ask the user if they want to start a new game or end 
+     * game if they have run out of money to bet with. Will need to call this 
+     * after every time a person loses or wins. 
+     * @return SpeechletResponse user's response to if they want a new game
+     */
     private SpeechletResponse getEndGameResponse() {
-        //take this logic and put it somewhere else!
-//         Game game = new Game();
-//         Result result = game.hit();
-//         if(result.getBankTotal() <= 0) {
-//             return getEndGameResponse();
-//         }
-//alex
+        String speechText;
+        Result result = game.result;
+        
         // Create speech output
-//        if(result.getBankTotal() <= 0) {
-//            String speechText = "You have run out of money. Would you like to start a new game?";
-//        }
-        String speechText = "Would you like to start a new game?";
+        if(result.getBank() <= 0) {
+            speechText = "You have run out of money. Would you like to start a new game?";
+        }
+        speechText = "Would you like to start a new game?";
 
         // Create the Simple card content.
-        SimpleCard card = getSimpleCard("EndGame", speechText);
+//        SimpleCard card = getSimpleCard("EndGame", speechText)
 
-        // Create the plain text output.
-        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
-
-        return SpeechletResponse.newTellResponse(speech, card);
+        return getAskResponse("EndGame", speechText);
     }
 
     /**

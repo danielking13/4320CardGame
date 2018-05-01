@@ -211,6 +211,7 @@ public class Result {
         this.dealerBust = dealerBust;
     }
     public void updateBankTotal (int payout) {
+//        Shouldn't this be += payout?
         this.BankTotal += BankTotal; 
     } 
     
