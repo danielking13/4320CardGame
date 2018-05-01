@@ -173,10 +173,12 @@ public class BlackjackSpeechlet implements SpeechletV2 {
             }
         }
         
-        SimpleCard card = getSimpleCard("HitHand", speechText);
-        
-        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
-        return SpeechletResponse.newAskResponse(speech, card);
+//        SimpleCard card = getSimpleCard("HitHand", speechText);
+//        
+//        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
+//        return SpeechletResponse.newAskResponse(speech, card);
+        return getAskResponse("Stand", speechText);
+
     }
     
     
@@ -192,10 +194,11 @@ public class BlackjackSpeechlet implements SpeechletV2 {
                         + game.getHandCount(playerHand) + "Would you like to hit or stand?";
         }
         
-        SimpleCard card = getSimpleCard("HitHand", speechText);
+//        SimpleCard card = getSimpleCard("HitHand", speechText);
         
-        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
-        return SpeechletResponse.newAskResponse(speech, card);
+//        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
+//        return SpeechletResponse.newAskResponse(speech, card);
+        return getAskResponse("Hit", speechText);
     }
     
     private SpeechletResponse readPlayersHand() {
