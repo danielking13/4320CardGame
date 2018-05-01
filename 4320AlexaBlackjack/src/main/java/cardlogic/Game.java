@@ -43,6 +43,7 @@ public class Game {
         shuffle();
         playerHand.clear();
         dealerHand.clear();
+       // game.placeBet(); 
         i=0;
         playerHand.add(deck.get(i));
         i++;
@@ -57,21 +58,25 @@ public class Game {
             result.setDealerBlackjack(true);
             result.setPlayerBlackjack(true);
             result.setWinMultiplier(1.0);
+            result.updateBankTotal(result.getPayout(bet)); 
             
         } else if (checkBlackjack(playerHand)){
             result.setPlayerBlackjack(true);
             result.setPlayerWin(true);
             result.setWinMultiplier(2.5);
+            result.updateBankTotal(result.getPayout(bet));
             
         } else if (checkBlackjack(dealerHand)){
             result.setDealerWin(true);
             result.setDealerBlackjack(true);
             result.setWinMultiplier(0.0);
+            result.updateBankTotal(result.getPayout(bet));
         } else {
             //players hand to play
             result.setPlayerScore(getHandCount(playerHand));
             result.setDealerShowing(dealerHand.get(0).getHighBlackjackValue());
             result.setSoft(isSoft(playerHand));
+            result.updateBankTotal(result.getPayout(bet));
         }
         return result;
     }
@@ -87,6 +92,7 @@ public class Game {
             result.setPlayerBust(true);
             result.setDealerWin(true);
             result.setWinMultiplier(0.0);
+            result.updateBankTotal(result.getPayout(bet));
         }
         return result;
     }
@@ -107,16 +113,20 @@ public class Game {
             result.setDealerBust(true);
             result.setPlayerWin(true);
             result.setWinMultiplier(2.0);
+            result.updateBankTotal(result.getPayout(bet));
         }
         if (player > dealer){
             result.setPlayerWin(true);
             result.setWinMultiplier(2.0);
+            result.updateBankTotal(result.getPayout(bet));
         } else if (player == dealer){
             result.setWinMultiplier(1.0);
             result.setTie(true);
+            result.updateBankTotal(result.getPayout(bet));
         } else {
             result.setDealerWin(true);
             result.setWinMultiplier(0.0);
+            result.updateBankTotal(result.getPayout(bet));
         }
         return result;
     }
