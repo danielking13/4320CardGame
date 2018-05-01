@@ -26,10 +26,8 @@ import com.amazon.speech.ui.OutputSpeech;
  */
 public class BlackjackSpeechlet implements SpeechletV2 {
     private static final Logger log = LoggerFactory.getLogger(BlackjackSpeechlet.class);
-
     
     Game game = new Game();
-    
     
     @Override
     public void onSessionStarted(SpeechletRequestEnvelope<SessionStartedRequest> requestEnvelope) {
@@ -42,7 +40,7 @@ public class BlackjackSpeechlet implements SpeechletV2 {
     public SpeechletResponse onLaunch(SpeechletRequestEnvelope<LaunchRequest> requestEnvelope) {
         log.info("onLaunch requestId={}, sessionId={}", requestEnvelope.getRequest().getRequestId(),
                 requestEnvelope.getSession().getSessionId());
-        return getNewFactResponse(); //This needs to be Kolton's method to start new game onLaunch
+        return openingStatement(); //This needs to be Kolton's method to start new game onLaunch
     }
 
     @Override
@@ -100,15 +98,13 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         // any cleanup logic goes here
     }
     
-    private SpeechletResponse openingStatement(){
-        
-        PlainTextOutputSpeech speech = getPlanTextOutput("Would you like to start a new game or listen to the rules");
-        
-        return SpeechletResponse.newAskResponse(speech);
+    private SpeechletResponse openingStatement() {
+        String speech = "Would you like to start a new game or listen to the rules";
+        return getAskResponse("Opening Statement", speech);
     }
     
     private SpeechletResponse getRulesResponse(){
-        PlainTextOutputSpeech speech = getPlainTextOutput(
+        String speech = 
         "This game uses a standard 52 card deck" +
         "Each participant attempts to beat the dealer by getting a count as close to 21 as possible, without going over 21." +
         "Before the deal begins, each player places a bet. The player starts with one thousand dollars." +
@@ -119,14 +115,13 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         "The player to the left goes first and must decide whether to stand or hit." +
         "Thus, a player may stand on the two cards originally dealt him, or he may ask the dealer for additional cards, one at a time, until he either decides to stand on the total , or go bust by exceeding a total of twenty one." +
         "When the dealer has served every player, his face-down card is turned up. If the total is seventeen or more, he must stand. If the total is sixteen or under, he must take a card." +
-        "He must continue to take cards until the total is 17 or more, at which point the dealer must stand."
-        );
+        "He must continue to take cards until the total is 17 or more, at which point the dealer must stand.";
         
-        return SpeechletResponse.newAskResponse(speech);
+        return getAskResponse("Rules", speech);
     }
     
-    private setUpNewGame(){
-        Game.shuffle();
+    private void setUpNewGame(){
+        game.shuffle();
     }
     
     
@@ -139,12 +134,9 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         
         String speechText = "My hitter my hitter. Your card total is " + cardTotal;
         
-        SimpleCard card = getSimpleCard("CardTotal", speechText);
+//        SimpleCard card = getSimpleCard("CardTotal", speechText);
         
-        // Create the plain text output.
-        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
-        
-        return SpeechletResponse.newAskResponse(speech, card);
+        return getAskResponse("CardTotal", speechText);
     }
     
     private SpeechletResponse getWinOrBustResponse() {
@@ -158,10 +150,10 @@ public class BlackjackSpeechlet implements SpeechletV2 {
             speechText = "Bummer, you busted.";
         }
         
-        SimpleCard card = getSimpleCard("WinOrBust", speechText);
+//        SimpleCard card = getSimpleCard("WinOrBust", speechText);
         
         PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
-        return SpeechletResponse.newAskResponse(speech, card);
+        return getAskResponse("WinOrBust", speechText);
     }
     
     private SpeechletResponse standHand() {
