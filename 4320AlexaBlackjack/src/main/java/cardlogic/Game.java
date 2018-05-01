@@ -163,4 +163,13 @@ public class Game {
         }
     }
     
+    private int placeBet ( int bet ) {
+     this.bet = bet ;   
+    }
+    
+    private Boolean checkBet (int bet, int bankTotal) {
+     return (bankTotal >= bet); 
+        
+    }    
+        
 }
