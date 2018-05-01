@@ -117,20 +117,26 @@ public class BlackjackSpeechlet implements SpeechletV2 {
     }
     
     
-   private SpeechletResponse dealHand() {
+   private SpeechletResponse dealHand() {   //Kelly
         
         String speechText;
         Result result = game.deal();
         
         
-        if(result.tie) {
-            speechText = "Both you and the dealer got Blackjack! You tied! Your ";
-        }
-        
-        
-        
-        
-        
+        if (result.tie) {
+            speechText = "Both you and the dealer got Blackjack! You tied! Your bank is now something something."
+                + "Would you like to play again?";
+        } else if (result.playerBlackjack) {
+            speechText = "You got Blackjack! You win! Your bank is now something something. Would you like to play again?";
+        } else if (result.dealerBlackjack) {
+            speechText = "The dealer got Blackjack! You lose! Your bank is now something something. Would you like to play again?";
+        } else if (result.soft) {
+            speechText = "You were dealt a soft" + result.playerScore + "The dealer is showing" + result.dealerShowing +
+                "Would you like to hit or stand?";
+        } else {
+            speechText = "You were dealt a" + result.playerScore + "The dealer is showing" + result.dealerShowing +
+                "Would you like to hit or stand?";
+        }       
         
         
 //        SimpleCard card = getSimpleCard("Deal", speechText);
@@ -143,18 +149,21 @@ public class BlackjackSpeechlet implements SpeechletV2 {
     
     
     
-    private SpeechletResponse hitHand() {
+    private SpeechletResponse hitHand() {   //Kelly
         
         String speechText;
         Result result = game.hit();
         
         
-        
-        
-        
-        
-        
-        
+        if (result.playerBust) {
+            speechText = "You busted! You lose! Your bank is now something something. Would you like to play again?";
+        } else if (result.soft) {
+            speechText = "You were dealt a soft" + result.playerScore + "The dealer is showing" + result.dealerShowing +
+                "Would you like to hit or stand?";
+        } else {
+            speechText = "You were dealt a" + result.playerScore + "The dealer is showing" + result.dealerShowing +
+                "Would you like to hit or stand?";
+        }       
         
         
 //        SimpleCard card = getSimpleCard("Hit", speechText);
@@ -165,19 +174,25 @@ public class BlackjackSpeechlet implements SpeechletV2 {
     }
     
     
-    private SpeechletResponse standHand() {
+    private SpeechletResponse standHand() {   //Kelly
         
         String speechText;
         Result result = game.stand();
         
         
-        
-        
-        
-        
-        
-        
-        
+        if (result.dealerBust) {
+            speechText = "The dealer has busted! You win! Your bank is now something something. Would you like to play again?";
+        } else if (result.tie) {
+            speechText = "You and the dealer tied with a score of" + result.playerScore + 
+                "Your bank is now something something. Would you like to play again?";
+        } else if (result.playerWin) {
+            speechText = "You won! Your score was" + result.playerScore + "and the dealer's score was" + result.dealFinalScore +
+                "Your bank is now something something. Would you like to play again?";
+        } else {  //dealer wins
+            speechText = "You lost! Your score was" + result.playerScore + "and the dealer's score was" + result.dealFinalScore +
+                "Your bank is now something something. Would you like to play again?";
+        }     
+    
         
 //        SimpleCard card = getSimpleCard("Stand", speechText);
 //        
