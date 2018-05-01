@@ -210,7 +210,7 @@ public class Result {
     public void setDealerBust(boolean dealerBust) {
         this.dealerBust = dealerBust;
     }
-    public void updateBankTotal (Integer BankTotal) {
+    public void updateBankTotal (int payout) {
         this.BankTotal += BankTotal; 
     } 
     
