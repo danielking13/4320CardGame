@@ -58,14 +58,8 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         } else if("ReadRulesIntent".equals(intentName)){
             return getRulesResponse();
             
-        }else if ("CardTotalIntent".equals(intentName)) {
-            return getCardTotalResponse();
-
-        } else if("WinOrBustIntent".equals(intentName)){
-            return getWinOrBustResponse();
-            
-        } else if("ReadPlayersHandIntent".equals(intentName)){
-            return readPlayersHand();
+        } else if("DealIntent".equals(intentName)){
+            return dealHand();
         
         } else if("HitIntent".equals(intentName)){
             return hitHand();
@@ -121,97 +115,74 @@ public class BlackjackSpeechlet implements SpeechletV2 {
     }
     
     
-    
-    /**
-     * Returns the card total after a round.
-    */
-    private SpeechletResponse getCardTotalResponse() {
-        int cardTotal = (int)8;
-        
-        String speechText = "My hitter my hitter. Your card total is " + cardTotal;
-        
-//        SimpleCard card = getSimpleCard("CardTotal", speechText);
-        
-        return getAskResponse("CardTotal", speechText);
-    }
-    
-    private SpeechletResponse getWinOrBustResponse() {
-        boolean winOrBust = true;
-        String speechText;
-        
-        if(winOrBust){
-            speechText = "Congratulations, you have won!";
-        }
-        else {
-            speechText = "Bummer, you busted.";
-        }
-        
-//        SimpleCard card = getSimpleCard("WinOrBust", speechText);
-        
-        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
-        return getAskResponse("WinOrBust", speechText);
-    }
-    
-    private SpeechletResponse standHand() {
+   private SpeechletResponse dealHand() {
         
         String speechText;
-        int i = 0;
+        Result result = game.deal();
         
-        if(game.stand().dealerBust){
-        speechText = "Your total is a" + game.getHandCount(playerHand) + "I hit until I busted. You win!";
-        } else {
-            if(###playerWins###) {
-                speechText = "Your total is a" + game.getHandCount(playerHand) + "I hit until my score was a" 
-                + game.getHandCount(dealerHand) + "You win!";
-            } else {
-                speechText = "Your total is a" + game.getHandCount(playerHand) + "I hit until my score was a" 
-                + game.getHandCount(dealerHand) + "I win!";
-            }
-        }
         
-//        SimpleCard card = getSimpleCard("HitHand", speechText);
-//        
+        
+        
+        
+        
+        
+        
+        
+        
+//        SimpleCard card = getSimpleCard("Deal", speechText);
+        
 //        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
 //        return SpeechletResponse.newAskResponse(speech, card);
-        return getAskResponse("Stand", speechText);
-
+        return getAskResponse("Deal", speechText);
     }
+    
+    
     
     
     private SpeechletResponse hitHand() {
         
         String speechText;
-        int i = 0; //static?
+        Result result = game.hit();
         
-        if(game.hit().playerBust) {
-            speechText = "You busted. You lose.";
-        } else {
-            speechText = "You were dealt a" + game.playerHand.get(i).value + "so your total is now a" 
-                        + game.getHandCount(playerHand) + "Would you like to hit or stand?";
-        }
         
-//        SimpleCard card = getSimpleCard("HitHand", speechText);
+        
+        
+        
+        
+        
+        
+        
+        
+//        SimpleCard card = getSimpleCard("Hit", speechText);
         
 //        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
 //        return SpeechletResponse.newAskResponse(speech, card);
         return getAskResponse("Hit", speechText);
     }
     
-    private SpeechletResponse readPlayersHand() {
-        //Game game = new Game();
-        game.deal();
+    
+    private SpeechletResponse standHand() {
         
         String speechText;
-        int i = 0;
+        Result result = game.stand();
         
-        speechText = "You were dealt a" + game.playerHand.get(i).value + "and a" + game.playerHand.get(i+1).value
-                        + "Your hand is a" + game.getHandCount(playerHand) + "Would you like to hit or stand?";
         
-        SimpleCard card = getSimpleCard("PlayerHand", speechText);
         
-        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
-        return SpeechletResponse.newAskResponse(speech, card);
+        
+        
+        
+        
+        
+        
+        
+//        SimpleCard card = getSimpleCard("Stand", speechText);
+//        
+//        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
+//        return SpeechletResponse.newAskResponse(speech, card);
+        return getAskResponse("Stand", speechText);
     }
+    
+    
     
     
     /**
