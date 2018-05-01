@@ -27,6 +27,10 @@ import com.amazon.speech.ui.OutputSpeech;
 public class BlackjackSpeechlet implements SpeechletV2 {
     private static final Logger log = LoggerFactory.getLogger(BlackjackSpeechlet.class);
 
+    
+    Game game = new Game();
+    
+    
     @Override
     public void onSessionStarted(SpeechletRequestEnvelope<SessionStartedRequest> requestEnvelope) {
         log.info("onSessionStarted requestId={}, sessionId={}", requestEnvelope.getRequest().getRequestId(),
@@ -56,6 +60,15 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         } else if("WinOrBustIntent".equals(intentName)){
             return getWinOrBustResponse();
             
+        } else if("ReadPlayersHandIntent".equals(intentName)){
+            return readPlayersHand();
+        
+        } else if("HitIntent".equals(intentName)){
+            return hitHand();
+        
+        } else if("StandIntent".equals(intentName)){
+            return standHand();
+        
         } else if ("AMAZON.HelpIntent".equals(intentName)) {
             return getHelpResponse();
 
@@ -114,14 +127,74 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         return SpeechletResponse.newTellResponse(speech, card);
     }
     
+    private SpeechletResponse standHand() {
+        
+        String speechText;
+        int i = 0;
+        
+        if(game.stand().dealerBust){
+        speechText = "Your total is a" + game.getHandCount(playerHand) + "I hit until I busted. You win!";
+        } else {
+            if(###playerWins###) {
+                speechText = "Your total is a" + game.getHandCount(playerHand) + "I hit until my score was a" 
+                + game.getHandCount(dealerHand) + "You win!";
+            } else {
+                speechText = "Your total is a" + game.getHandCount(playerHand) + "I hit until my score was a" 
+                + game.getHandCount(dealerHand) + "I win!";
+            }
+        }
+        
+        SimpleCard card = getSimpleCard("HitHand", speechText);
+        
+        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
+        return SpeechletResponse.newTellResponse(speech, card);
+    }
+    
+    
+    private SpeechletResponse hitHand() {
+        
+        String speechText;
+        int i = 0; //static?
+        
+        if(game.hit().playerBust) {
+            speechText = "You busted. You lose."
+        } else {
+            speechText = "You were dealt a" + game.playerHand.get(i).value + "so your total is now a" 
+                        + game.getHandCount(playerHand) + "Would you like to hit or stand?";
+        }
+        
+        SimpleCard card = getSimpleCard("HitHand", speechText);
+        
+        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
+        return SpeechletResponse.newTellResponse(speech, card);
+    }
+    
+    private SpeechletResponse readPlayersHand() {
+        //Game game = new Game();
+        game.deal();
+        
+        String speechText;
+        int i = 0;
+        
+        speechText = "You were dealt a" + game.playerHand.get(i).value + "and a" + game.playerHand.get(i+1).value
+                        + "Your hand is a" + game.getHandCount(playerHand) + "Would you like to hit or stand?";
+        
+        SimpleCard card = getSimpleCard("PlayerHand", speechText);
+        
+        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
+        return SpeechletResponse.newTellResponse(speech, card);
+    }
+    
+    
+    
     private SpeechletResponse getEndGameResponse() {
         //take this logic and put it somewhere else!
-//        Game game = new Game();
-//        Result result = game.hit();
-//        if(result.getBankTotal() <= 0) {
-//            return getEndGameResponse();
-//        }
-
+//         Game game = new Game();
+//         Result result = game.hit();
+//         if(result.getBankTotal() <= 0) {
+//             return getEndGameResponse();
+//         }
+//alex
         // Create speech output
 //        if(result.getBankTotal() <= 0) {
 //            String speechText = "You have run out of money. Would you like to start a new game?";
