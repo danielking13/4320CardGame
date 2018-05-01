@@ -16,7 +16,10 @@
       "intent": "AMAZON.HelpIntent"
     },
     {
-       "intent": "ReadPlayersHand"
-    }
+       "intent": "ReadPlayersHandIntent"
+    },
+    {
+        "intent": "HitOrStandIntent"
+    }    
   ]
 }
