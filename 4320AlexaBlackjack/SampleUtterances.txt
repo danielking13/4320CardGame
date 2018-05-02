@@ -1,0 +1,13 @@
+StartNewGameIntent play blackjack
+StartNewGameIntent start new game of blackjack
+StartNewGameIntent I'd like to play a new game of blackjack
+ReadRulesIntent I want to hear the rules
+ReadRulesIntent play the rules
+ReadRulesIntent list the rules
+ReadRulesIntent tell me the rules of blackjack
+DealIntent deal out the cards
+HitIntent hit
+HitIntent I'll hit
+StandIntent stand
+StandIntent I'll stand
+BetIntent bet
