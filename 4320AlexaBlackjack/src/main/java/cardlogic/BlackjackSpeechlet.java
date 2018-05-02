@@ -54,7 +54,8 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         
         if("StartNewGameIntent".equals(intentName)){
             game = new Game(); 
-            //       return askForBet();
+//                   return askForBet();
+            return openingStatement();
             //needs to call a function that asks how much they want to bet and retrieves their answer
         } else if("ReadRulesIntent".equals(intentName)){
             return getRulesResponse();
@@ -123,18 +124,18 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         Result result = game.deal();
         
         
-        if (result.tie) {
+        if (result.isTie()) {
             speechText = "Both you and the dealer got Blackjack! You tied! Your bank is now something something."
                 + "Would you like to play again?";
-        } else if (result.playerBlackjack) {
+        } else if (result.isPlayerBlackjack()) {
             speechText = "You got Blackjack! You win! Your bank is now something something. Would you like to play again?";
-        } else if (result.dealerBlackjack) {
+        } else if (result.isDealerBlackjack()) {
             speechText = "The dealer got Blackjack! You lose! Your bank is now something something. Would you like to play again?";
-        } else if (result.soft) {
-            speechText = "You were dealt a soft" + result.playerScore + "The dealer is showing" + result.dealerShowing +
+        } else if (result.isSoft()) {
+            speechText = "You were dealt a soft" + result.getPlayerScore() + "The dealer is showing" + result.getDealerShowing() +
                 "Would you like to hit or stand?";
         } else {
-            speechText = "You were dealt a" + result.playerScore + "The dealer is showing" + result.dealerShowing +
+            speechText = "You were dealt a" + result.getPlayerScore() + "The dealer is showing" + result.getDealerShowing() +
                 "Would you like to hit or stand?";
         }       
         
@@ -155,13 +156,13 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         Result result = game.hit();
         
         
-        if (result.playerBust) {
+        if (result.isPlayerBust()) {
             speechText = "You busted! You lose! Your bank is now something something. Would you like to play again?";
-        } else if (result.soft) {
-            speechText = "You were dealt a soft" + result.playerScore + "The dealer is showing" + result.dealerShowing +
+        } else if (result.isSoft()) {
+            speechText = "You were dealt a soft" + result.getPlayerScore() + "The dealer is showing" + result.getDealerShowing() +
                 "Would you like to hit or stand?";
         } else {
-            speechText = "You were dealt a" + result.playerScore + "The dealer is showing" + result.dealerShowing +
+            speechText = "You were dealt a" + result.getPlayerScore() + "The dealer is showing" + result.getDealerShowing() +
                 "Would you like to hit or stand?";
         }       
         
@@ -180,16 +181,16 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         Result result = game.stand();
         
         
-        if (result.dealerBust) {
+        if (result.isDealerBust()) {
             speechText = "The dealer has busted! You win! Your bank is now something something. Would you like to play again?";
-        } else if (result.tie) {
-            speechText = "You and the dealer tied with a score of" + result.playerScore + 
+        } else if (result.isTie()) {
+            speechText = "You and the dealer tied with a score of" + result.getPlayerScore() + 
                 "Your bank is now something something. Would you like to play again?";
-        } else if (result.playerWin) {
-            speechText = "You won! Your score was" + result.playerScore + "and the dealer's score was" + result.dealFinalScore +
+        } else if (result.isPlayerWin()) {
+            speechText = "You won! Your score was" + result.getPlayerScore() + "and the dealer's score was" + result.getDealerFinalScore() +
                 "Your bank is now something something. Would you like to play again?";
         } else {  //dealer wins
-            speechText = "You lost! Your score was" + result.playerScore + "and the dealer's score was" + result.dealFinalScore +
+            speechText = "You lost! Your score was" + result.getPlayerScore() + "and the dealer's score was" + result.getDealerFinalScore() +
                 "Your bank is now something something. Would you like to play again?";
         }     
     
@@ -201,30 +202,27 @@ public class BlackjackSpeechlet implements SpeechletV2 {
         return getAskResponse("Stand", speechText);
     }
     
-    
-    
-    
     /**
      * Function used to ask the user if they want to start a new game or end 
      * game if they have run out of money to bet with. Will need to call this 
      * after every time a person loses or wins. 
      * @return SpeechletResponse user's response to if they want a new game
      */
-    private SpeechletResponse getEndGameResponse() {
-        String speechText;
-        Result result = game.result;
-        
-        // Create speech output
-        if(result.getBank() <= 0) {
-            speechText = "You have run out of money. Would you like to start a new game?";
-        }
-        speechText = "Would you like to start a new game?";
-
-        // Create the Simple card content.
-//        SimpleCard card = getSimpleCard("EndGame", speechText)
-
-        return getAskResponse("EndGame", speechText);
-    }
+//    private SpeechletResponse getEndGameResponse() {
+//        String speechText;
+//        
+//        
+//        // Create speech output
+//        if(result.getBank() <= 0) {
+//            speechText = "You have run out of money. Would you like to start a new game?";
+//        }
+//        speechText = "Would you like to start a new game?";
+//
+//        // Create the Simple card content.
+////        SimpleCard card = getSimpleCard("EndGame", speechText)
+//
+//        return getAskResponse("EndGame", speechText);
+//    }
 
     /**
      * Returns a response for the help intent.
