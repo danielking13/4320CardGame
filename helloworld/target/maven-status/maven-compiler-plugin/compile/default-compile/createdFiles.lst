@@ -1,0 +1,6 @@
+com/amazon/asksdk/helloworld/HelloWorldSpeechlet.class
+com/amazon/asksdk/helloworld/Card.class
+com/amazon/asksdk/helloworld/Result.class
+com/amazon/asksdk/helloworld/Game.class
+com/amazon/asksdk/helloworld/HelloWorldSpeechletRequestStreamHandler.class
+com/amazon/asksdk/helloworld/Deck.class
