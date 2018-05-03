@@ -1,0 +1,75 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "blackjack",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": [
+                        "what can I do",
+                        "Help",
+                        "I need help"
+                    ]
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": [
+                        "I'm done",
+                        "exit",
+                        "stop"
+                    ]
+                },
+                {
+                    "name": "StartNewGameIntent",
+                    "slots": [],
+                    "samples": [
+                        "play",
+                        "new game",
+                        "deal",
+                        "play a new game",
+                        "I'd like to play a new game of blackjack",
+                        "start new game of blackjack",
+                        "play blackjack",
+                        "Start a new game"
+                    ]
+                },
+                {
+                    "name": "ReadRulesIntent",
+                    "slots": [],
+                    "samples": [
+                        "Listen to the rules",
+                        "What are the rules",
+                        "Say the rules",
+                        "Read me the rules"
+                    ]
+                },
+                {
+                    "name": "StandIntent",
+                    "slots": [],
+                    "samples": [
+                        "stay",
+                        "stand",
+                        "I'll stand"
+                    ]
+                },
+                {
+                    "name": "HitIntent",
+                    "slots": [],
+                    "samples": [
+                        "I'll hit",
+                        "hit"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}

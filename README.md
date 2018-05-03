@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+
+=======
 # Software Engineering (CS 4320) Final Project
 
 ## Team Members 
@@ -85,3 +88,4 @@ For splitting, the player should always split a pair of aces or 8s; identical te
 
 
 from https://www.bicyclecards.com/how-to-play/blackjack/
+>>>>>>> master
