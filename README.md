@@ -1,5 +1,4 @@
 # 4320 Card Game
-=======
 # Software Engineering (CS 4320) Final Project
 
 ## Team Members 
@@ -13,6 +12,14 @@
 ### [Link to Axosoft](https://jmw7cf.axosoft.com/)
 
 This project is a blackjack game run by Alexa. You start the game by asking her to open a new blackjack game. You will have the option to hear the rules of blackjack or start a new game.
+The dealer will tell you the total value of the cards you have (card total) and what the dealer is showing.
+The dealer will ask you if you would like to 'hit' or 'stand'.
+You will respond to Alexa with hit or stand.
+
+After you hit, you could hit again. Or you will bust.
+
+Otherwise, you win blackjack!
+
 The rules of blackjack are as follows:
 
 # Blackjack Rules and Variations
