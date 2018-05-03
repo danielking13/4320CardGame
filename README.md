@@ -10,6 +10,8 @@
 
 ### [Link to Axosoft](https://jmw7cf.axosoft.com/)
 
+### [Link to Video demonstration](https://www.youtube.com/watch?v=aRShHOoK8e8&feature=youtu.be)
+
 This project is a blackjack game run by Alexa. You start the game by asking her to open a new blackjack game. You will have the option to hear the rules of blackjack or start a new game.
 The dealer will tell you the total value of the cards you have (card total) and what the dealer is showing.
 The dealer will ask you if you would like to 'hit' or 'stand'.
